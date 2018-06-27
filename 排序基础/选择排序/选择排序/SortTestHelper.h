@@ -30,6 +30,21 @@ namespace SortTestHelper {
         return arr;
     }
     
+    //生成一个几乎有序的数组
+    int* generateNearlyOrderArray(int n, int swapTimes) {
+        int *arr = new int[n];
+        for (int i=0; i<n; i++) {
+            arr[i] = i;
+        }
+        
+        srand(time(NULL));
+        for (int i=0; i<swapTimes; i++) {
+            int posy = rand()%n;
+            int posx = rand()%n;
+            swap(arr[posy], arr[posx]);
+        }
+        return arr;
+    }
     
     template< typename T>
     void printArray(T arr[], int n) {
@@ -62,7 +77,11 @@ namespace SortTestHelper {
         
     }
     
-    
+    int *coypIntArray(int a[], int n) {
+        int *array = new int[n];
+        copy(a, a+n, array);
+        return array;
+    }
 }
 
 #endif /* SortTestHelper_h */
