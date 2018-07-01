@@ -43,14 +43,18 @@ void __merge(T arr[], int l, int mid, int r) {
 
 template <typename T>
 void __mergeSort(T arr[], int l, int r) {
-    if (l >= r){
+    if (r - l < 15) {
+        insertSort(arr, l, r);
         return;
     }
     
     int mid = (r - l) / 2 + l;
     __mergeSort(arr, l, mid);
     __mergeSort(arr, mid + 1, r);
-    __merge(arr, l, mid, r);
+    if (arr[mid] > arr[mid + 1]) {
+        __merge(arr, l, mid, r);
+    }
+    
 }
 
 template <typename T>
@@ -69,7 +73,17 @@ int main(int argc, const char * argv[]) {
     SortTestHelper::testSort("归并排序", mergeSort, a, n);
     SortTestHelper::testSort("插入排序", insertSort, b, n);
     
+    delete [] a;
+    delete [] b;
     
+    a = SortTestHelper::generateNearlyOrderArray(n, 10);
+    b = SortTestHelper::coypIntArray(a, n);
+    
+    SortTestHelper::testSort("归并排序", mergeSort, a, n);
+    SortTestHelper::testSort("插入排序", insertSort, b, n);
+    
+    delete [] a;
+    delete [] b;
     
     return 0;
 }
